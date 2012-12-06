@@ -1,0 +1,25 @@
+<!doctype html>
+<style>
+  body { margin:0; }
+</style>
+<script>
+  window.name = 'ad_main'
+
+  adContent = {
+    main: '<div style="position:absolute; width:100%; height:100%; text-align:center; font:50px/250px sans-serif; background:orange; color:white">main</div>',
+    child: '<div style="position:absolute; width:100%; height:100%; text-align:center; font:50px/100px sans-serif; background:sandybrown; color:white">child</div>'
+  }
+
+  window.onload = function() {
+    document.body.innerHTML = adContent.main
+  }
+
+  if (window.postMessage) {
+    window.parent.postMessage('createAdFrame:child', 'http://home.local')
+  } else {
+    iframe = document.createElement('iframe')
+    iframe.src = 'http://home.local/home-createadframe.html#child'
+    iframe.style.display = 'none'
+    document.documentElement.appendChild(iframe)
+  }
+</script>

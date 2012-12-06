@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+<style>
+  iframe { display:block; border:none; margin:10px 0 }
+  #ad_main { width:300px; height:250px }
+  #ad_child { width:300px; height:100px }
+</style>
+<script>
+  function createAdFrame(name) {
+    iframe = document.createElement('iframe')
+    iframe.id = 'ad_' + name
+    iframe.src = 'http://ads.local/ads-load.html#' + name
+    iframe.setAttribute('frameBorder', '0')
+    document.body.appendChild(iframe)
+  }
+
+  function handleMessage(ev) {
+    if (ev.origin != 'http://ads.local') {
+      return
+    }
+    msg = ev.data.split(':')
+    if (msg[0] == 'createAdFrame') {
+      createAdFrame(msg[1])
+    }
+  }
+
+  if (window.addEventListener) {
+    window.addEventListener('message', handleMessage, false)
+  } else if (window.attachEvent) {
+    window.attachEvent('onmessage', handleMessage)
+  }
+</script>
+</head>
+<body>
+  <iframe id="ad_main" frameBorder="0" src="http://ads.local/ads.html"></iframe>
+</body>
+</html>

@@ -1,0 +1,11 @@
+<!doctype html>
+<style>
+  body { margin:0; }
+</style>
+<script>
+  window.onload = function() {
+    var adContent = window.parent.frames['ad_main'].adContent,
+        frameName = location.hash.substr(1)
+    document.body.innerHTML = adContent[frameName]
+  }
+</script>
